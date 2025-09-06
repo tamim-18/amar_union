@@ -96,7 +96,7 @@ export default function ProtectedRoute({
           <Shield className="h-8 w-8 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-gray-900 mb-2">Access Denied</h2>
           <p className="text-gray-600 mb-4">
-            You don't have the required role to access this page.
+            You don&apos;t have the required role to access this page.
           </p>
           <button
             onClick={() => router.push('/auth')}
@@ -125,7 +125,7 @@ export default function ProtectedRoute({
             <Shield className="h-8 w-8 text-red-500 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-gray-900 mb-2">Access Denied</h2>
             <p className="text-gray-600 mb-4">
-              You don't have the required permissions to access this page.
+              You don&apos;t have the required permissions to access this page.
             </p>
             <button
               onClick={() => router.push('/auth')}

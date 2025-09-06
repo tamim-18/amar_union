@@ -49,6 +49,7 @@ export default function IssueReporter() {
     urgency: string;
     tags: string[];
   } | null>(null);
+  const [uploadedImage, setUploadedImage] = useState(false);
 
   useEffect(() => {
     if (!isInitializing && !isAuthenticated) {
@@ -80,7 +81,6 @@ export default function IssueReporter() {
       </div>
     );
   }
-  const [uploadedImage, setUploadedImage] = useState(false);
 
   const categories = [
     { id: 'infrastructure', name: 'অবকাঠামো', nameEn: 'Infrastructure', icon: '🛣️', color: 'bg-blue-500', description: 'রাস্তা, সেতু, ভবন, সরকারি সুবিধা' },

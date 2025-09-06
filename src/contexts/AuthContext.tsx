@@ -90,8 +90,8 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
       return {
         canAccessCitizen: true,
         canAccessLeader: false,
-        canAccessDonor: true,
-        canAccessBeneficiary: true,
+        canAccessDonor: false,
+        canAccessBeneficiary: false,
         canAccessSupport: true,
         canAccessMap: false,
         canAccessAdmin: false,

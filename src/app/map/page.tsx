@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from "@/components/ui/button";
 import InteractiveMap from "@/components/map/InteractiveMap";
@@ -82,9 +83,9 @@ export default function MapPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm" className="text-white hover:bg-white/20" asChild>
-              <a href="/">
+              <Link href="/">
                 <ArrowLeft className="h-4 w-4" />
-              </a>
+              </Link>
             </Button>
             <div>
               <h1 className="text-2xl font-bold flex items-center gap-2">

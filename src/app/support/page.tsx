@@ -559,7 +559,7 @@ export default function SupportCenter() {
             <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
               <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white p-6">
                 <h3 className="text-xl font-bold">Create New Support Ticket</h3>
-                <p className="text-blue-100">Describe your issue and we'll help you resolve it</p>
+                <p className="text-blue-100">Describe your issue and we&apos;ll help you resolve it</p>
               </div>
               <div className="p-6 max-h-96 overflow-y-auto">
                 <div className="space-y-4">

@@ -38,6 +38,7 @@ interface Article {
   content: string;
   contentBn: string;
   excerpt: string;
+  excerptBn: string;
   category: string;
   author: string;
   publishedAt: string;

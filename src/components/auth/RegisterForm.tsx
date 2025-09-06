@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth, UserRole } from '@/contexts/AuthContext';
 import { 
   Eye,
   EyeOff,
@@ -16,7 +17,6 @@ import {
   Loader2,
   ArrowRight,
   Shield,
-  Globe,
   Heart,
   Users,
   Crown,
@@ -104,7 +104,7 @@ export default function RegisterForm({ onSwitchToLogin, onRegisterSuccess }: Reg
         nameBn: formData.nameBn,
         email: formData.email,
         nid: formData.nid,
-        role: formData.role as any,
+        role: formData.role as UserRole,
         division: formData.division,
         district: formData.district,
         upazila: formData.upazila,

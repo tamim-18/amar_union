@@ -87,7 +87,7 @@ export class GeminiService {
   async assessEligibility(
     nidData: NIDVerification,
     programType: string,
-    additionalInfo: any
+    additionalInfo: Record<string, unknown>
   ): Promise<EligibilityAssessment> {
     try {
       const prompt = `

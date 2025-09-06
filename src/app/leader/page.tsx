@@ -272,7 +272,7 @@ export default function LeaderDashboard() {
               <CardHeader>
                 <h3 className="font-bold text-gray-900 flex items-center gap-2">
                   <Zap className="h-5 w-5 text-slate-600" />
-                  Today's Overview
+                  Today&apos;s Overview
                 </h3>
               </CardHeader>
               <CardContent className="space-y-4">

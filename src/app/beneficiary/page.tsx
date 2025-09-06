@@ -155,7 +155,7 @@ export default function BeneficiaryPassport() {
                   <Shield className="h-8 w-8 text-white" />
                   <div className="text-2xl font-bold">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
                 </div>
-                <div className="text-emerald-100">Government of the People's Republic of Bangladesh</div>
+                <div className="text-emerald-100">Government of the People&apos;s Republic of Bangladesh</div>
                 <div className="text-emerald-200 text-sm mt-1">Digital Transparency Passport</div>
               </div>
 

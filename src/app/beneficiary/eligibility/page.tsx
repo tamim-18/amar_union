@@ -36,7 +36,7 @@ interface Program {
   description: string;
   requirements: string[];
   benefits: string[];
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   color: string;
 }
 
