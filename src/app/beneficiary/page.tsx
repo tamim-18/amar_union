@@ -1,30 +1,24 @@
 "use client";
 
-import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { 
-  User,
   Shield,
   CheckCircle2,
-  MapPin,
   Calendar,
-  Phone,
-  Mail,
   QrCode,
   Download,
-  Eye,
-  Bell,
   Settings,
   Award,
   CreditCard,
   Fingerprint,
   Globe,
-  Heart
+  Heart,
+  BookOpen,
+  Leaf
 } from "lucide-react";
 
 export default function BeneficiaryPassport() {
-  const [isVerified, setIsVerified] = useState(true);
 
   const beneficiaryData = {
     nid: '1234567890123',
@@ -50,51 +44,69 @@ export default function BeneficiaryPassport() {
   const entitlements = [
     {
       program: 'Clean Water Access',
+      programBn: 'পরিষ্কার পানি',
       status: 'Active',
-      amount: '৳2,500/month',
-      validUntil: '2024-12-31',
+      statusBn: 'চালু',
+      amount: '৳২,৫০০/মাস',
+      validUntil: '২০২৪-১২-৩১',
       beneficiaries: 5,
-      color: 'bg-blue-500'
+      color: 'bg-blue-500',
+      icon: Leaf
     },
     {
       program: 'Healthcare Subsidy',
+      programBn: 'চিকিৎসা সহায়তা',
       status: 'Active',
-      amount: '৳1,800/month',
-      validUntil: '2024-12-31',
+      statusBn: 'চালু',
+      amount: '৳১,৮০০/মাস',
+      validUntil: '২০২৪-১২-৩১',
       beneficiaries: 3,
-      color: 'bg-red-500'
+      color: 'bg-red-500',
+      icon: Heart
     },
     {
       program: 'Education Support',
+      programBn: 'শিক্ষা সহায়তা',
       status: 'Pending',
-      amount: '৳3,000/month',
-      validUntil: '2025-06-30',
+      statusBn: 'অপেক্ষায়',
+      amount: '৳৩,০০০/মাস',
+      validUntil: '২০২৫-০৬-৩০',
       beneficiaries: 2,
-      color: 'bg-purple-500'
+      color: 'bg-purple-500',
+      icon: BookOpen
     }
   ];
 
   const recentTransactions = [
     {
-      date: '2024-01-20',
+      date: '২০২৪-০১-২০',
       program: 'Clean Water Access',
-      amount: '৳2,500',
+      programBn: 'পরিষ্কার পানি',
+      amount: '৳২,৫০০',
       status: 'Received',
-      method: 'Bank Transfer'
+      statusBn: 'পেয়েছেন',
+      method: 'Bank Transfer',
+      methodBn: 'ব্যাংক ট্রান্সফার'
     },
     {
-      date: '2024-01-15',
+      date: '২০২৪-০১-১৫',
       program: 'Healthcare Subsidy',
-      amount: '৳1,800',
+      programBn: 'চিকিৎসা সহায়তা',
+      amount: '৳১,৮০০',
       status: 'Received',
-      method: 'Mobile Banking'
+      statusBn: 'পেয়েছেন',
+      method: 'Mobile Banking',
+      methodBn: 'মোবাইল ব্যাংকিং'
     },
     {
-      date: '2024-01-10',
+      date: '২০২৪-০১-১০',
       program: 'Clean Water Access',
-      amount: '৳2,500',
+      programBn: 'পরিষ্কার পানি',
+      amount: '৳২,৫০০',
       status: 'Received',
-      method: 'Bank Transfer'
+      statusBn: 'পেয়েছেন',
+      method: 'Bank Transfer',
+      methodBn: 'ব্যাংক ট্রান্সফার'
     }
   ];
 
@@ -111,22 +123,22 @@ export default function BeneficiaryPassport() {
               </div>
               <div>
                 <h1 className="text-3xl font-bold">
-                  <span className="bengali-text text-emerald-300">ডিজিটাল পাসপোর্ট</span>
+                  <span className="bengali-text text-emerald-300">আপনার পরিচয়পত্র</span>
                 </h1>
-                <p className="text-slate-300">Digital Transparency Passport</p>
+                <p className="text-slate-300 bengali-text">সরকারি সাহায্যের পরিচয়পত্র</p>
                 <div className="flex items-center gap-4 mt-2 text-sm">
                   <span className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Verified
+                    <span className="bengali-text">যাচাইকৃত</span>
                   </span>
-                  <span>NID: {beneficiaryData.nid}</span>
+                  <span className="bengali-text">জাতীয় পরিচয়: {beneficiaryData.nid}</span>
                 </div>
               </div>
             </div>
             <div className="flex gap-3">
               <Button variant="ghost" className="text-white hover:bg-white/20">
                 <Download className="h-4 w-4 mr-2" />
-                Download
+                <span className="bengali-text">ডাউনলোড</span>
               </Button>
               <Button variant="ghost" className="text-white hover:bg-white/20">
                 <Settings className="h-4 w-4" />
@@ -153,10 +165,10 @@ export default function BeneficiaryPassport() {
               <div className="relative z-10 text-center mb-6">
                 <div className="flex items-center justify-center gap-3 mb-2">
                   <Shield className="h-8 w-8 text-white" />
-                  <div className="text-2xl font-bold">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
+                  <div className="text-2xl font-bold bengali-text">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</div>
                 </div>
-                <div className="text-emerald-100">Government of the People&apos;s Republic of Bangladesh</div>
-                <div className="text-emerald-200 text-sm mt-1">Digital Transparency Passport</div>
+                <div className="text-emerald-100 bengali-text">বাংলাদেশ সরকার</div>
+                <div className="text-emerald-200 text-sm mt-1 bengali-text">সরকারি সাহায্যের পরিচয়পত্র</div>
               </div>
 
               {/* Main ID Content */}
@@ -172,7 +184,7 @@ export default function BeneficiaryPassport() {
                   </div>
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
                     <Fingerprint className="h-6 w-6 mx-auto mb-1 text-emerald-200" />
-                    <div className="text-xs text-emerald-100">Biometric Verified</div>
+                    <div className="text-xs text-emerald-100 bengali-text">আঙুলের ছাপ যাচাই</div>
                   </div>
                 </div>
 
@@ -210,7 +222,7 @@ export default function BeneficiaryPassport() {
                   </div>
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
                     <QrCode className="h-8 w-8 mx-auto mb-2 text-white" />
-                    <div className="text-xs text-emerald-100 text-center">Scan for Verification</div>
+                    <div className="text-xs text-emerald-100 text-center bengali-text">যাচাই করতে স্ক্যান করুন</div>
                   </div>
                 </div>
               </div>
@@ -220,10 +232,10 @@ export default function BeneficiaryPassport() {
                 <div className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-emerald-200" />
-                    <span className="text-emerald-100">{beneficiaryData.verificationLevel}</span>
+                    <span className="text-emerald-100 bengali-text">সম্পূর্ণ যাচাইকৃত</span>
                   </div>
-                  <div className="text-emerald-200">
-                    ইস্যু: {beneficiaryData.issueDate} • Issue: 2024
+                  <div className="text-emerald-200 bengali-text">
+                    জারি: {beneficiaryData.issueDate}
                   </div>
                 </div>
               </div>
@@ -246,38 +258,38 @@ export default function BeneficiaryPassport() {
                 <div className="bg-white rounded-2xl shadow-lg border-l-4 border-emerald-500 p-6 hover:shadow-xl transition-all duration-300">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="font-bold text-gray-900 mb-1">{entitlement.program}</h3>
+                      <h3 className="font-bold text-gray-900 mb-1 bengali-text">{entitlement.programBn}</h3>
                       <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
                         entitlement.status === 'Active' 
                           ? 'bg-green-100 text-green-700' 
                           : 'bg-amber-100 text-amber-700'
                       }`}>
-                        {entitlement.status}
+                        <span className="bengali-text">{entitlement.statusBn}</span>
                       </div>
                     </div>
                     <div className={`w-10 h-10 ${entitlement.color} rounded-xl flex items-center justify-center`}>
-                      <Heart className="h-5 w-5 text-white" />
+                      <entitlement.icon className="h-5 w-5 text-white" />
                     </div>
                   </div>
 
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-gray-600 text-sm">Monthly Amount:</span>
-                      <span className="font-bold text-emerald-600">{entitlement.amount}</span>
+                      <span className="text-gray-600 text-sm bengali-text">মাসিক টাকা:</span>
+                      <span className="font-bold text-emerald-600 bengali-text">{entitlement.amount}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600 text-sm">Family Members:</span>
-                      <span className="font-medium">{entitlement.beneficiaries} people</span>
+                      <span className="text-gray-600 text-sm bengali-text">পরিবারের সদস্য:</span>
+                      <span className="font-medium bengali-text">{entitlement.beneficiaries} জন</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600 text-sm">Valid Until:</span>
-                      <span className="font-medium">{entitlement.validUntil}</span>
+                      <span className="text-gray-600 text-sm bengali-text">শেষ তারিখ:</span>
+                      <span className="font-medium bengali-text">{entitlement.validUntil}</span>
                     </div>
                   </div>
 
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <Button size="sm" className="w-full bg-emerald-500 hover:bg-emerald-600">
-                      View Details
+                      <span className="bengali-text">বিস্তারিত দেখুন</span>
                     </Button>
                   </div>
                 </div>
@@ -297,7 +309,7 @@ export default function BeneficiaryPassport() {
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
             <div className="bg-emerald-500 text-white p-4">
               <h3 className="font-bold">Payment History</h3>
-              <p className="text-emerald-100 text-sm">Your benefit disbursement records</p>
+              <p className="text-emerald-100 text-sm bengali-text">আপনার সাহায্যের টাকার রেকর্ড</p>
             </div>
             
             <div className="divide-y divide-gray-100">
@@ -309,12 +321,12 @@ export default function BeneficiaryPassport() {
                         <CheckCircle2 className="h-5 w-5 text-emerald-600" />
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-900">{transaction.program}</div>
+                        <div className="font-semibold text-gray-900 bengali-text">{transaction.programBn}</div>
                         <div className="text-sm text-gray-600">{transaction.method} • {transaction.date}</div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-lg font-bold text-emerald-600">{transaction.amount}</div>
+                      <div className="text-lg font-bold text-emerald-600 bengali-text">{transaction.amount}</div>
                       <div className="text-xs text-green-600">{transaction.status}</div>
                     </div>
                   </div>
@@ -324,10 +336,14 @@ export default function BeneficiaryPassport() {
 
             <div className="p-4 bg-gray-50 text-center space-y-2">
               <Button variant="outline" size="sm" asChild>
-                <a href="/beneficiary/track">View All Transactions</a>
+                <a href="/beneficiary/track">
+                  <span className="bengali-text">সব লেনদেন দেখুন</span>
+                </a>
               </Button>
               <Button variant="outline" size="sm" asChild>
-                <a href="/beneficiary/eligibility">Check Eligibility</a>
+                <a href="/beneficiary/eligibility">
+                  <span className="bengali-text">যোগ্যতা চেক করুন</span>
+                </a>
               </Button>
             </div>
           </div>
@@ -339,26 +355,26 @@ export default function BeneficiaryPassport() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <Shield className="h-10 w-10 text-white animate-pulse" />
               <div>
-                <h3 className="text-2xl font-bold">Verification Complete</h3>
-                <p className="text-green-100">Your identity is fully verified and secure</p>
+                <h3 className="text-2xl font-bold bengali-text">যাচাই সম্পূর্ণ</h3>
+                <p className="text-green-100 bengali-text">আপনার পরিচয় সম্পূর্ণ যাচাইকৃত এবং নিরাপদ</p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
               <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
                 <Fingerprint className="h-8 w-8 mx-auto mb-2 text-green-200" />
-                <div className="font-bold mb-1">Biometric Match</div>
-                <div className="text-green-100 text-sm">99.8% accuracy</div>
+                <div className="font-bold mb-1 bengali-text">আঙুলের ছাপ</div>
+                <div className="text-green-100 text-sm">৯৯.৮% সঠিক</div>
               </div>
               <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
                 <Globe className="h-8 w-8 mx-auto mb-2 text-green-200" />
                 <div className="font-bold mb-1">NID Verified</div>
-                <div className="text-green-100 text-sm">Government confirmed</div>
+                <div className="text-green-100 text-sm bengali-text">সরকারি যাচাই</div>
               </div>
               <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4">
                 <CheckCircle2 className="h-8 w-8 mx-auto mb-2 text-green-200" />
                 <div className="font-bold mb-1">Blockchain Secured</div>
-                <div className="text-green-100 text-sm">Immutable record</div>
+                <div className="text-green-100 text-sm bengali-text">নিরাপদ রেকর্ড</div>
               </div>
             </div>
           </div>

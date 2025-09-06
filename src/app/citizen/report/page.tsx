@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { SuccessModal } from "@/components/ui/success-modal";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { 
   Camera, 
@@ -14,11 +15,8 @@ import {
   ArrowLeft,
   Sparkles,
   CheckCircle2,
-  AlertTriangle,
   Upload,
-  Mic,
   Bot,
-  Zap,
   Target,
   ChevronRight,
   ChevronLeft
@@ -50,6 +48,7 @@ export default function IssueReporter() {
     tags: string[];
   } | null>(null);
   const [uploadedImage, setUploadedImage] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     if (!isInitializing && !isAuthenticated) {
@@ -113,9 +112,7 @@ Available categories:
 - corruption: Bribery, misuse of funds, unethical practices
 - other: General complaints and other issues
 
-IMPORTANT: Respond with ONLY valid JSON, no markdown formatting, no code blocks, no additional text.
-
-Required JSON format:
+Respond in JSON format:
 {
   "suggestedCategory": "category_id",
   "confidence": 0.85,
@@ -128,22 +125,29 @@ Required JSON format:
 Issue description: ${description}`;
 
       const response = await geminiService.generateChatResponse(systemPrompt);
+      console.log('AI Response:', response);
       
       try {
         // Extract JSON from markdown code blocks if present
         let jsonString = response;
-        const jsonMatch = response.match(/```json\s*([\s\S]*?)\s*```/);
+        
+        // Check if response contains markdown code blocks
+        const jsonMatch = response.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
         if (jsonMatch) {
           jsonString = jsonMatch[1];
-        } else if (response.includes('```')) {
-          // Try to extract content between any code blocks
-          const codeMatch = response.match(/```\s*([\s\S]*?)\s*```/);
-          if (codeMatch) {
-            jsonString = codeMatch[1];
+          console.log('Extracted JSON from markdown:', jsonString);
+        } else {
+          // Try to find JSON object in the response
+          const jsonObjectMatch = response.match(/\{[\s\S]*\}/);
+          if (jsonObjectMatch) {
+            jsonString = jsonObjectMatch[0];
+            console.log('Extracted JSON object:', jsonString);
+          } else {
+            console.log('No JSON found in response, using raw response');
           }
         }
         
-        const aiResult = JSON.parse(jsonString.trim());
+        const aiResult = JSON.parse(jsonString);
         setAiCategorization(aiResult);
         setSelectedCategory(aiResult.suggestedCategory);
         setPriority(aiResult.priority);
@@ -151,24 +155,23 @@ Issue description: ${description}`;
         setAISuggestions([aiResult.reasoning]);
       } catch (parseError) {
         console.error('Error parsing AI response:', parseError);
-        console.log('Raw response:', response);
+        console.log('Raw AI response:', response);
         
-        // Fallback: Try to extract basic information from the response
-        try {
-          const fallbackResult = {
-            suggestedCategory: 'other',
-            confidence: 0.5,
-            reasoning: 'AI analysis completed. Please review the suggested category manually.',
-            priority: 'medium',
-            urgency: 'within_week',
-            tags: ['manual-review']
-          };
-          setAiCategorization(fallbackResult);
-          setAISuggestions(['AI analysis completed. Please review the suggested category.']);
-        } catch (fallbackError) {
-          console.error('Fallback also failed:', fallbackError);
-          setAISuggestions(['AI analysis completed. Please review the suggested category.']);
-        }
+        // Fallback: Create a basic categorization object
+        const fallbackResult = {
+          suggestedCategory: 'infrastructure',
+          confidence: 0.5,
+          reasoning: 'AI analysis completed. Please review the suggested category.',
+          priority: 'medium',
+          urgency: 'within_week',
+          tags: ['general']
+        };
+        
+        setAiCategorization(fallbackResult);
+        setSelectedCategory(fallbackResult.suggestedCategory);
+        setPriority(fallbackResult.priority);
+        setUrgency(fallbackResult.urgency);
+        setAISuggestions([fallbackResult.reasoning]);
       }
     } catch (error) {
       console.error('AI categorization error:', error);
@@ -227,7 +230,7 @@ Issue description: ${description}`;
         </div>
       </div>
 
-      <div className="container mx-auto px-4 -mt-4 relative z-10">
+      <div className="container mx-auto px-4 mt-8 relative z-10">
         {/* Progress Steps */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
@@ -288,6 +291,40 @@ Issue description: ${description}`;
                         className="min-h-[120px] resize-none bengali-text"
                       />
                     </div>
+
+                    {/* Image Upload Section */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-3 bengali-text">
+                        ছবি আপলোড করুন (ঐচ্ছিক)
+                      </label>
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50">
+                        <div className="flex flex-col items-center space-y-4">
+                          <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                            <Camera className="h-8 w-8 text-gray-400" />
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-600 bengali-text">
+                              ছবি যোগ করে সমস্যাটি আরও স্পষ্ট করুন
+                            </p>
+                            <p className="text-xs text-gray-500 bengali-text mt-1">
+                              JPG, PNG, GIF (সর্বোচ্চ 5MB)
+                            </p>
+                          </div>
+                          <Button
+                            disabled
+                            variant="outline"
+                            className="bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed"
+                          >
+                            <Upload className="h-4 w-4 mr-2" />
+                            <span className="bengali-text">ছবি আপলোড করুন</span>
+                          </Button>
+                          <p className="text-xs text-gray-400 bengali-text">
+                            (শীঘ্রই আসছে)
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="flex justify-end">
                       <Button 
                         onClick={nextStep}
@@ -465,16 +502,16 @@ Issue description: ${description}`;
                     </div>
 
                     <div className="flex justify-between">
-                      <Button variant="outline" onClick={prevStep} className="px-6 py-3">
+                      <Button variant="outline" onClick={prevStep}>
                         <ChevronLeft className="h-4 w-4 mr-2" />
-                        <span className="bengali-text">পিছনে</span>
+                        Back
                       </Button>
                       <Button 
                         onClick={nextStep}
                         disabled={!selectedCategory || !priority || !urgency}
-                        className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium"
+                        className="bg-emerald-500 hover:bg-emerald-600"
                       >
-                        <span className="bengali-text">পরবর্তী: পর্যালোচনা ও জমা</span>
+                        Next: Review & Submit
                         <ChevronRight className="h-4 w-4 ml-2" />
                       </Button>
                     </div>
@@ -485,41 +522,38 @@ Issue description: ${description}`;
                 {currentStep === 4 && (
                   <div className="space-y-6">
                     <div className="bg-gray-50 rounded-xl p-6">
-                      <h4 className="font-semibold text-gray-900 mb-4 bengali-heading">আপনার রিপোর্ট পর্যালোচনা করুন</h4>
+                      <h4 className="font-semibold text-gray-900 mb-4">Review Your Report</h4>
                       <div className="space-y-4">
                         <div>
-                          <span className="text-sm font-medium text-gray-700 bengali-text">বিবরণ:</span>
-                          <p className="text-sm text-gray-600 mt-1 bengali-text">{description}</p>
+                          <span className="text-sm font-medium text-gray-700">Description:</span>
+                          <p className="text-sm text-gray-600 mt-1">{description}</p>
                         </div>
                         <div>
-                          <span className="text-sm font-medium text-gray-700 bengali-text">বিভাগ:</span>
+                          <span className="text-sm font-medium text-gray-700">Category:</span>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-2xl">{categories.find(c => c.id === selectedCategory)?.icon}</span>
-                            <span className="text-sm text-gray-600 bengali-text">{categories.find(c => c.id === selectedCategory)?.name}</span>
+                            <span className="text-sm text-gray-600">{categories.find(c => c.id === selectedCategory)?.name}</span>
                           </div>
                         </div>
                         <div>
-                          <span className="text-sm font-medium text-gray-700 bengali-text">অবস্থান:</span>
-                          <p className="text-sm text-gray-600 mt-1 bengali-text">{location}</p>
+                          <span className="text-sm font-medium text-gray-700">Location:</span>
+                          <p className="text-sm text-gray-600 mt-1">{location}</p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <span className="text-sm font-medium text-gray-700 bengali-text">অগ্রাধিকার:</span>
+                            <span className="text-sm font-medium text-gray-700">Priority:</span>
                             <span className={`ml-2 px-2 py-1 rounded text-xs ${
                               priority === 'high' ? 'bg-red-100 text-red-800' :
                               priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                               'bg-green-100 text-green-800'
                             }`}>
-                              {priority === 'high' ? 'উচ্চ' : 
-                               priority === 'medium' ? 'মধ্যম' : 'নিম্ন'}
+                              {priority}
                             </span>
                           </div>
                           <div>
-                            <span className="text-sm font-medium text-gray-700 bengali-text">জরুরিতা:</span>
+                            <span className="text-sm font-medium text-gray-700">Urgency:</span>
                             <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                              {urgency === 'immediate' ? 'তাত্ক্ষণিক' :
-                               urgency === 'within_24h' ? '২৪ ঘন্টার মধ্যে' :
-                               urgency === 'within_week' ? 'এক সপ্তাহের মধ্যে' : 'জরুরি নয়'}
+                              {urgency}
                             </span>
                           </div>
                         </div>
@@ -527,20 +561,20 @@ Issue description: ${description}`;
                     </div>
 
                     <div className="flex justify-between">
-                      <Button variant="outline" onClick={prevStep} className="px-6 py-3">
+                      <Button variant="outline" onClick={prevStep}>
                         <ChevronLeft className="h-4 w-4 mr-2" />
-                        <span className="bengali-text">পিছনে</span>
+                        Back
                       </Button>
                       <Button 
                         onClick={() => {
-                          // Handle form submission
-                          alert('রিপোর্ট সফলভাবে জমা দেওয়া হয়েছে!');
-                          router.push('/citizen');
+                          // Handle form submission - Updated to use modal instead of alert
+                          console.log('Submitting report...');
+                          setShowSuccessModal(true);
                         }}
-                        className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium"
+                        className="bg-blue-500 hover:bg-blue-600"
                       >
                         <Send className="h-4 w-4 mr-2" />
-                        <span className="bengali-text">রিপোর্ট জমা দিন</span>
+                        Submit Report
                       </Button>
                     </div>
                   </div>
@@ -558,13 +592,13 @@ Issue description: ${description}`;
                   <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <Bot className="h-8 w-8 animate-bounce-subtle" />
                   </div>
-                  <h3 className="text-lg font-bold mb-2 bengali-heading">AI সহায়ক</h3>
-                  <p className="text-purple-100 text-sm mb-4 bengali-text">
-                    আমি আপনার সমস্যাকে শ্রেণীবদ্ধ করতে এবং রিপোর্ট উন্নত করতে সাহায্য করব।
+                  <h3 className="text-lg font-bold mb-2">AI Assistant</h3>
+                  <p className="text-purple-100 text-sm mb-4">
+                    I&apos;ll help categorize your issue and suggest improvements to your report.
                   </p>
                   <div className="bg-purple-400/30 rounded-lg p-3">
-                    <p className="text-xs text-purple-100 bengali-text">
-                      💡 টিপ: দ্রুত সমাধানের জন্য সময়, অবস্থান এবং প্রভাবের মতো নির্দিষ্ট বিবরণ অন্তর্ভুক্ত করুন
+                    <p className="text-xs text-purple-100">
+                      💡 Tip: Include specific details like time, location, and impact for faster resolution
                     </p>
                   </div>
                 </div>
@@ -576,29 +610,29 @@ Issue description: ${description}`;
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="h-5 w-5 text-emerald-500" />
-                  <span className="bengali-heading">দ্রুত টিপস</span>
+                  Quick Tips
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-900 bengali-text">নির্দিষ্ট হন</p>
-                    <p className="text-xs text-gray-500 bengali-text">সঠিক অবস্থান এবং সময় অন্তর্ভুক্ত করুন</p>
+                    <p className="text-sm font-medium text-gray-900">Be Specific</p>
+                    <p className="text-xs text-gray-500">Include exact location and time</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-900 bengali-text">ছবি যোগ করুন</p>
-                    <p className="text-xs text-gray-500 bengali-text">দৃশ্যমান প্রমাণ কর্তৃপক্ষকে সাহায্য করে</p>
+                    <p className="text-sm font-medium text-gray-900">Add Photos</p>
+                    <p className="text-xs text-gray-500">Visual evidence helps authorities</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-900 bengali-text">নিরাপত্তা প্রথম</p>
-                    <p className="text-xs text-gray-500 bengali-text">জরুরি নিরাপত্তা উদ্বেগ চিহ্নিত করুন</p>
+                    <p className="text-sm font-medium text-gray-900">Safety First</p>
+                    <p className="text-xs text-gray-500">Mark urgent safety concerns</p>
                   </div>
                 </div>
               </CardContent>
@@ -607,8 +641,8 @@ Issue description: ${description}`;
             {/* Recent Categories */}
             <Card className="bg-white border-0 shadow-xl">
               <CardHeader>
-                <CardTitle className="text-lg bengali-heading">জনপ্রিয় সমস্যা</CardTitle>
-                <p className="text-gray-500 text-sm bengali-text">আপনার এলাকার সাধারণ রিপোর্ট</p>
+                <CardTitle className="text-lg">Popular Issues</CardTitle>
+                <p className="text-gray-500 text-sm">Common reports in your area</p>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between p-3 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer">
@@ -637,6 +671,21 @@ Issue description: ${description}`;
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title="রিপোর্ট সফলভাবে জমা হয়েছে!"
+        message="আপনার সমস্যা রিপোর্ট সফলভাবে জমা দেওয়া হয়েছে। আমাদের দল এটি পর্যালোচনা করে দ্রুত সমাধানের চেষ্টা করবে।"
+        actionText="নাগরিক ড্যাশবোর্ডে যান"
+        reportId={`RPT-${Date.now().toString().slice(-6)}`}
+        estimatedTime="২-৩ দিন"
+        onAction={() => {
+          setShowSuccessModal(false);
+          router.push('/citizen');
+        }}
+      />
     </div>
     </ProtectedRoute>
   );

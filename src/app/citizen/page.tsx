@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
@@ -52,7 +52,7 @@ export default function CitizenDashboard() {
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <p className="text-gray-600 bengali-text">লোড হচ্ছে...</p>
         </div>
       </div>
     );
@@ -64,7 +64,7 @@ export default function CitizenDashboard() {
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Redirecting to login...</p>
+          <p className="text-gray-600 bengali-text">লগইনে রিডাইরেক্ট হচ্ছে...</p>
         </div>
       </div>
     );
@@ -89,12 +89,12 @@ export default function CitizenDashboard() {
                 <span className="bengali-text text-teal-600">নাগরিক ড্যাশবোর্ড</span>
               </h1>
               <p className="text-sm text-gray-500">
-                Welcome back, {user?.name || 'Citizen'}! 
-                <span className="bengali-text ml-2">স্বাগতম!</span>
+                <span className="bengali-text">স্বাগতম, {user?.name || 'নাগরিক'}!</span>
+                <span className="ml-2">Welcome back!</span>
               </p>
             </div>
           </div>
-          <p className="text-gray-600 max-w-2xl mx-auto">Welcome back! Track your issues and explore transparency data with our AI-powered platform.</p>
+          <p className="text-gray-600 max-w-2xl mx-auto bengali-text">আপনার সমস্যা ট্র্যাক করুন এবং আমাদের AI-চালিত প্ল্যাটফর্ম দিয়ে স্বচ্ছতা ডেটা অন্বেষণ করুন।</p>
         </div>
 
         {/* Enhanced Quick Actions */}
@@ -110,8 +110,8 @@ export default function CitizenDashboard() {
                   <Plus className="h-6 w-6 text-white" />
                 </div>
                 <div className="text-left">
-                  <div className="font-bold text-lg text-white">Report Issue</div>
-                  <div className="text-xs text-teal-100">AI-powered assistance</div>
+                  <div className="font-bold text-lg text-white bengali-text">সমস্যা রিপোর্ট</div>
+                  <div className="text-xs text-teal-100 bengali-text">AI-সহায়তায়</div>
                 </div>
               </div>
             </Button>
@@ -129,8 +129,8 @@ export default function CitizenDashboard() {
                   <Eye className="h-6 w-6 text-white" />
                 </div>
                 <div className="text-left">
-                  <div className="font-bold text-lg text-gray-900">Transparency</div>
-                  <div className="text-xs text-gray-500">Fund tracking & data</div>
+                  <div className="font-bold text-lg text-gray-900 bengali-text">স্বচ্ছতা</div>
+                  <div className="text-xs text-gray-500 bengali-text">তহবিল ট্র্যাকিং ও ডেটা</div>
                 </div>
               </div>
             </Button>
@@ -148,8 +148,8 @@ export default function CitizenDashboard() {
                   <Users className="h-6 w-6 text-white" />
                 </div>
                 <div className="text-left">
-                  <div className="font-bold text-lg text-gray-900">Community</div>
-                  <div className="text-xs text-gray-500">Local feed & updates</div>
+                  <div className="font-bold text-lg text-gray-900 bengali-text">সম্প্রদায়</div>
+                  <div className="text-xs text-gray-500 bengali-text">স্থানীয় ফিড ও আপডেট</div>
                 </div>
               </div>
             </Button>
@@ -163,9 +163,9 @@ export default function CitizenDashboard() {
             <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-teal-100 text-sm font-medium">My Issues</p>
-                  <p className="text-3xl font-bold mb-1">7</p>
-                  <p className="text-xs text-teal-200">↗ +2 this week</p>
+                  <p className="text-teal-100 text-sm font-medium bengali-text">আমার সমস্যা</p>
+                  <p className="text-3xl font-bold mb-1 bengali-text">৭</p>
+                  <p className="text-xs text-teal-200 bengali-text">↗ +২ এই সপ্তাহে</p>
                 </div>
                 <div className="relative">
                   <FileText className="h-10 w-10 text-teal-200 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
@@ -180,9 +180,9 @@ export default function CitizenDashboard() {
             <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-100 text-sm font-medium">Resolved</p>
-                  <p className="text-3xl font-bold mb-1">4</p>
-                  <p className="text-xs text-green-200">Great progress!</p>
+                  <p className="text-green-100 text-sm font-medium bengali-text">সমাধান</p>
+                  <p className="text-3xl font-bold mb-1 bengali-text">৪</p>
+                  <p className="text-xs text-green-200 bengali-text">চমৎকার অগ্রগতি!</p>
                 </div>
                 <CheckCircle className="h-10 w-10 text-green-200 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
               </div>
@@ -194,9 +194,9 @@ export default function CitizenDashboard() {
             <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-amber-100 text-sm font-medium">In Progress</p>
-                  <p className="text-3xl font-bold mb-1">2</p>
-                  <p className="text-xs text-amber-200">Being worked on</p>
+                  <p className="text-amber-100 text-sm font-medium bengali-text">চলমান</p>
+                  <p className="text-3xl font-bold mb-1 bengali-text">২</p>
+                  <p className="text-xs text-amber-200 bengali-text">কাজ চলছে</p>
                 </div>
                 <Clock className="h-10 w-10 text-amber-200 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
               </div>
@@ -208,9 +208,9 @@ export default function CitizenDashboard() {
             <CardContent className="p-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-red-100 text-sm font-medium">Pending</p>
-                  <p className="text-3xl font-bold mb-1">1</p>
-                  <p className="text-xs text-red-200">Awaiting review</p>
+                  <p className="text-red-100 text-sm font-medium bengali-text">অপেক্ষমান</p>
+                  <p className="text-3xl font-bold mb-1 bengali-text">১</p>
+                  <p className="text-xs text-red-200 bengali-text">পর্যালোচনার অপেক্ষায়</p>
                 </div>
                 <AlertTriangle className="h-10 w-10 text-red-200 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
               </div>
@@ -238,17 +238,17 @@ export default function CitizenDashboard() {
                 <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border border-green-200">
                   <div className="w-3 h-3 bg-green-500 rounded-full mt-2"></div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">Street Light Repair - Dhanmondi 27</h4>
-                    <p className="text-sm text-gray-600 mt-1">Reported broken street lights on Road 27. Work completed successfully.</p>
+                    <h4 className="font-medium text-gray-900 bengali-text">রাস্তার বাতি মেরামত - ধানমন্ডি ২৭</h4>
+                    <p className="text-sm text-gray-600 mt-1 bengali-text">রোড ২৭ এ ভাঙা রাস্তার বাতি রিপোর্ট করা হয়েছিল। কাজ সফলভাবে সম্পন্ন হয়েছে।</p>
                     <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
                         <MapPin className="h-3 w-3" />
-                        Dhanmondi, Dhaka
+                        <span className="bengali-text">ধানমন্ডি, ঢাকা</span>
                       </span>
-                      <span>Resolved • 2 days ago</span>
+                      <span className="bengali-text">সমাধান • ২ দিন আগে</span>
                       <span className="flex items-center gap-1 text-green-600">
                         <Star className="h-3 w-3" />
-                        Rated 5/5
+                        <span className="bengali-text">রেটিং ৫/৫</span>
                       </span>
                     </div>
                   </div>
@@ -257,15 +257,15 @@ export default function CitizenDashboard() {
                 <div className="flex items-start gap-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
                   <div className="w-3 h-3 bg-amber-500 rounded-full mt-2 animate-pulse"></div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">Water Supply Issue - Gulshan 2</h4>
-                    <p className="text-sm text-gray-600 mt-1">Low water pressure in apartment building. Team assigned for inspection.</p>
+                    <h4 className="font-medium text-gray-900 bengali-text">পানি সরবরাহ সমস্যা - গুলশান ২</h4>
+                    <p className="text-sm text-gray-600 mt-1 bengali-text">অ্যাপার্টমেন্ট বিল্ডিংয়ে কম পানির চাপ। পরিদর্শনের জন্য দল বরাদ্দ করা হয়েছে।</p>
                     <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
                         <MapPin className="h-3 w-3" />
-                        Gulshan, Dhaka
+                        <span className="bengali-text">গুলশান, ঢাকা</span>
                       </span>
-                      <span>In Progress • 1 week ago</span>
-                      <span className="text-amber-600">Expected: 3 days</span>
+                      <span className="bengali-text">চলমান • ১ সপ্তাহ আগে</span>
+                      <span className="text-amber-600 bengali-text">আনুমানিক: ৩ দিন</span>
                     </div>
                   </div>
                 </div>
@@ -273,15 +273,15 @@ export default function CitizenDashboard() {
                 <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
                   <div className="w-3 h-3 bg-blue-500 rounded-full mt-2"></div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">Road Pothole - Uttara Sector 10</h4>
-                    <p className="text-sm text-gray-600 mt-1">Large pothole causing traffic issues. Under review by authorities.</p>
+                    <h4 className="font-medium text-gray-900 bengali-text">রাস্তার গর্ত - উত্তরা সেক্টর ১০</h4>
+                    <p className="text-sm text-gray-600 mt-1 bengali-text">বড় গর্ত যানজট সৃষ্টি করছে। কর্তৃপক্ষের পর্যালোচনাধীন।</p>
                     <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
                         <MapPin className="h-3 w-3" />
-                        Uttara, Dhaka
+                        <span className="bengali-text">উত্তরা, ঢাকা</span>
                       </span>
-                      <span>Under Review • 3 days ago</span>
-                      <span className="text-blue-600">Priority: Medium</span>
+                      <span className="bengali-text">পর্যালোচনাধীন • ৩ দিন আগে</span>
+                      <span className="text-blue-600 bengali-text">অগ্রাধিকার: মাঝারি</span>
                     </div>
                   </div>
                 </div>
@@ -291,7 +291,7 @@ export default function CitizenDashboard() {
                   variant="outline" 
                   className="w-full mt-4"
                 >
-                  View All Issues
+                  <span className="bengali-text">সব সমস্যা দেখুন</span>
                 </Button>
               </CardContent>
             </Card>
@@ -310,13 +310,13 @@ export default function CitizenDashboard() {
                 <h3 className="text-xl font-bold mb-2 bengali-text">নাগরিক প্রভাব স্কোর</h3>
                 <p className="text-sm text-purple-100 mb-4">Civic Impact Score</p>
                 <div className="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-purple-100 bg-clip-text text-transparent">89</div>
-                <p className="text-purple-100 text-sm leading-relaxed mb-6">
-                  Outstanding! Your civic engagement is creating positive change in Bangladesh.
+                <p className="text-purple-100 text-sm leading-relaxed mb-6 bengali-text">
+                  অসাধারণ! আপনার নাগরিক অংশগ্রহণ বাংলাদেশে ইতিবাচক পরিবর্তন আনছে।
                 </p>
                 <div className="bg-purple-400/30 rounded-full h-3 overflow-hidden">
                   <div className="bg-gradient-to-r from-white to-purple-100 rounded-full h-3 w-4/5 animate-slideInRight"></div>
                 </div>
-                <p className="text-xs text-purple-200 mt-2">Top 15% of active citizens</p>
+                <p className="text-xs text-purple-200 mt-2 bengali-text">সক্রিয় নাগরিকদের শীর্ষ ১৫%</p>
               </CardContent>
             </Card>
 
@@ -328,20 +328,20 @@ export default function CitizenDashboard() {
               </div>
               <CardContent className="p-6 space-y-6">
                 <div className="flex justify-between items-center group hover:bg-teal-50 p-3 rounded-lg transition-colors">
-                  <span className="text-sm text-gray-600 font-medium">Issues This Month</span>
-                  <span className="font-bold text-2xl text-teal-600 group-hover:scale-110 transition-transform">247</span>
+                  <span className="text-sm text-gray-600 font-medium bengali-text">এই মাসের সমস্যা</span>
+                  <span className="font-bold text-2xl text-teal-600 group-hover:scale-110 transition-transform bengali-text">২৪৭</span>
                 </div>
                 <div className="flex justify-between items-center group hover:bg-green-50 p-3 rounded-lg transition-colors">
-                  <span className="text-sm text-gray-600 font-medium">Resolution Rate</span>
-                  <span className="font-bold text-2xl text-green-600 group-hover:scale-110 transition-transform">94%</span>
+                  <span className="text-sm text-gray-600 font-medium bengali-text">সমাধানের হার</span>
+                  <span className="font-bold text-2xl text-green-600 group-hover:scale-110 transition-transform bengali-text">৯৪%</span>
                 </div>
                 <div className="flex justify-between items-center group hover:bg-blue-50 p-3 rounded-lg transition-colors">
-                  <span className="text-sm text-gray-600 font-medium">Avg Response</span>
-                  <span className="font-bold text-2xl text-blue-600 group-hover:scale-110 transition-transform">2.3d</span>
+                  <span className="text-sm text-gray-600 font-medium bengali-text">গড় সাড়া</span>
+                  <span className="font-bold text-2xl text-blue-600 group-hover:scale-110 transition-transform bengali-text">২.৩ দিন</span>
                 </div>
                 <div className="flex justify-between items-center group hover:bg-purple-50 p-3 rounded-lg transition-colors">
                   <span className="text-sm text-gray-600 font-medium bengali-text">স্বচ্ছতা স্কোর</span>
-                  <span className="font-bold text-2xl text-purple-600 group-hover:scale-110 transition-transform">98%</span>
+                  <span className="font-bold text-2xl text-purple-600 group-hover:scale-110 transition-transform bengali-text">৯৮%</span>
                 </div>
               </CardContent>
             </Card>
@@ -349,25 +349,25 @@ export default function CitizenDashboard() {
             {/* Enhanced Recent Activity */}
             <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-xl rounded-3xl overflow-hidden">
               <div className="bg-gradient-to-r from-amber-500 to-orange-500 p-4 text-white">
-                <CardTitle className="text-lg font-bold">Recent Activity</CardTitle>
-                <p className="text-sm text-amber-100">Live community updates</p>
+                <CardTitle className="text-lg font-bold bengali-text">সাম্প্রতিক কার্যক্রম</CardTitle>
+                <p className="text-sm text-amber-100 bengali-text">লাইভ কমিউনিটি আপডেট</p>
               </div>
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center gap-4 p-3 hover:bg-green-50 rounded-lg transition-colors group">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm text-gray-600 group-hover:text-green-700 transition-colors">Issue #1247 marked as resolved</span>
+                  <span className="text-sm text-gray-600 group-hover:text-green-700 transition-colors bengali-text">ইস্যু #১২৪৭ সমাধান হিসেবে চিহ্নিত</span>
                 </div>
                 <div className="flex items-center gap-4 p-3 hover:bg-blue-50 rounded-lg transition-colors group">
                   <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                  <span className="text-sm text-gray-600 group-hover:text-blue-700 transition-colors">New update on water supply issue</span>
+                  <span className="text-sm text-gray-600 group-hover:text-blue-700 transition-colors bengali-text">পানি সরবরাহ সমস্যায় নতুন আপডেট</span>
                 </div>
                 <div className="flex items-center gap-4 p-3 hover:bg-amber-50 rounded-lg transition-colors group">
                   <div className="w-3 h-3 bg-amber-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-                  <span className="text-sm text-gray-600 group-hover:text-amber-700 transition-colors">Fund allocation approved for road repair</span>
+                  <span className="text-sm text-gray-600 group-hover:text-amber-700 transition-colors bengali-text">রাস্তা মেরামতের জন্য তহবিল বরাদ্দ অনুমোদিত</span>
                 </div>
                 <div className="flex items-center gap-4 p-3 hover:bg-purple-50 rounded-lg transition-colors group">
                   <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
-                  <span className="text-sm text-gray-600 group-hover:text-purple-700 transition-colors">Community meeting scheduled</span>
+                  <span className="text-sm text-gray-600 group-hover:text-purple-700 transition-colors bengali-text">কমিউনিটি মিটিং নির্ধারিত</span>
                 </div>
               </CardContent>
             </Card>

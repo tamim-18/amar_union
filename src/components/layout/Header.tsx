@@ -57,37 +57,37 @@ export default function Header() {
                     {permissions.canAccessCitizen && (
                       <a href="/citizen" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-all">
                         <Users className="h-4 w-4" />
-                        <span className="text-sm font-medium">Citizen</span>
+                        <span className="text-sm font-medium bengali-text">নাগরিক</span>
                       </a>
                     )}
                     {permissions.canAccessLeader && (
                       <a href="/leader" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-amber-600 hover:bg-amber-50 transition-all">
                         <TrendingUp className="h-4 w-4" />
-                        <span className="text-sm font-medium">Leader</span>
+                        <span className="text-sm font-medium bengali-text">নেতৃত্ব</span>
                       </a>
                     )}
                     {permissions.canAccessDonor && (
                       <a href="/donor" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-all">
                         <Heart className="h-4 w-4" />
-                        <span className="text-sm font-medium">Donor</span>
+                        <span className="text-sm font-medium bengali-text">দাতা</span>
                       </a>
                     )}
                     {permissions.canAccessBeneficiary && (
                       <a href="/beneficiary" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-all">
                         <Globe className="h-4 w-4" />
-                        <span className="text-sm font-medium">Beneficiary</span>
+                        <span className="text-sm font-medium bengali-text">সুবিধাভোগী</span>
                       </a>
                     )}
                     {permissions.canAccessSupport && (
                       <a href="/support" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all">
                         <Headphones className="h-4 w-4" />
-                        <span className="text-sm font-medium">Support</span>
+                        <span className="text-sm font-medium bengali-text">সহায়তা</span>
                       </a>
                     )}
                     {permissions.canAccessMap && (
                       <a href="/map" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-green-600 hover:bg-green-50 transition-all">
                         <Map className="h-4 w-4" />
-                        <span className="text-sm font-medium">Map</span>
+                        <span className="text-sm font-medium bengali-text">মানচিত্র</span>
                       </a>
                     )}
                   </>
@@ -96,7 +96,7 @@ export default function Header() {
             ) : (
               <a href="/auth" className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all">
                 <User className="h-4 w-4" />
-                <span className="text-sm font-medium">Login</span>
+                <span className="text-sm font-medium bengali-text">লগইন</span>
               </a>
             )}
           </nav>
@@ -153,7 +153,7 @@ export default function Header() {
                     <div className="py-2">
                       <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">
                         <Settings className="h-4 w-4" />
-                        Profile Settings
+                        <span className="bengali-text">প্রোফাইল সেটিং</span>
                       </button>
                       <button 
                         onClick={() => {
@@ -163,7 +163,7 @@ export default function Header() {
                         className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                       >
                         <LogOut className="h-4 w-4" />
-                        Logout
+                        <span className="bengali-text">বেরিয়ে যান</span>
                       </button>
                     </div>
                   </div>
@@ -202,8 +202,8 @@ export default function Header() {
                         <a href="/citizen" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-all">
                           <Users className="h-5 w-5" />
                           <div>
-                            <span className="block font-medium bengali-text">নাগরিক পোর্টাল</span>
-                            <span className="block text-xs text-gray-500">Citizen Portal</span>
+                            <span className="block font-medium bengali-text">নাগরিক</span>
+                            <span className="block text-xs text-gray-500 bengali-text">আমাদের এলাকার খবর</span>
                           </div>
                         </a>
                       )}
@@ -211,8 +211,8 @@ export default function Header() {
                         <a href="/leader" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:text-amber-600 hover:bg-amber-50 transition-all">
                           <TrendingUp className="h-5 w-5" />
                           <div>
-                            <span className="block font-medium bengali-text">নেতৃত্ব পোর্টাল</span>
-                            <span className="block text-xs text-gray-500">Leader Portal</span>
+                            <span className="block font-medium bengali-text">নেতৃত্ব</span>
+                            <span className="block text-xs text-gray-500 bengali-text">নেতাদের জন্য</span>
                           </div>
                         </a>
                       )}
@@ -220,8 +220,8 @@ export default function Header() {
                         <a href="/donor" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-all">
                           <Heart className="h-5 w-5" />
                           <div>
-                            <span className="block font-medium bengali-text">দাতা পোর্টাল</span>
-                            <span className="block text-xs text-gray-500">Donor Portal</span>
+                            <span className="block font-medium bengali-text">দাতা</span>
+                            <span className="block text-xs text-gray-500 bengali-text">সাহায্যকারীদের জন্য</span>
                           </div>
                         </a>
                       )}
@@ -230,7 +230,7 @@ export default function Header() {
                           <Globe className="h-5 w-5" />
                           <div>
                             <span className="block font-medium bengali-text">সুবিধাভোগী</span>
-                            <span className="block text-xs text-gray-500">Beneficiary Portal</span>
+                            <span className="block text-xs text-gray-500 bengali-text">যারা সাহায্য পায়</span>
                           </div>
                         </a>
                       )}
@@ -238,8 +238,8 @@ export default function Header() {
                         <a href="/support" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all">
                           <Headphones className="h-5 w-5" />
                           <div>
-                            <span className="block font-medium bengali-text">সহায়তা কেন্দ্র</span>
-                            <span className="block text-xs text-gray-500">Support Center</span>
+                            <span className="block font-medium bengali-text">সহায়তা</span>
+                            <span className="block text-xs text-gray-500 bengali-text">সাহায্য নিন</span>
                           </div>
                         </a>
                       )}
@@ -248,7 +248,7 @@ export default function Header() {
                           <Map className="h-5 w-5" />
                           <div>
                             <span className="block font-medium bengali-text">মানচিত্র</span>
-                            <span className="block text-xs text-gray-500">Interactive Map</span>
+                            <span className="block text-xs text-gray-500 bengali-text">এলাকা দেখুন</span>
                           </div>
                         </a>
                       )}
@@ -260,7 +260,7 @@ export default function Header() {
                   <User className="h-5 w-5" />
                   <div>
                     <span className="block font-medium bengali-text">লগইন</span>
-                    <span className="block text-xs text-gray-500">Login / Register</span>
+                    <span className="block text-xs text-gray-500 bengali-text">এখানে ঢুকুন</span>
                   </div>
                 </a>
               )}
