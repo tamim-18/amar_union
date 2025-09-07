@@ -41,7 +41,7 @@ export default function HomePage() {
       </a>
       
       {/* Hero Section */}
-      <main id="main-content" role="main" aria-label="Amar Sheba Protiva Homepage">
+      <main id="main-content" role="main" aria-label="সেবার জানালা - Shebar Janala Homepage">
         <section 
           className="relative overflow-hidden py-12 sm:py-16 lg:py-20 px-4"
           aria-labelledby="hero-heading"
@@ -61,16 +61,23 @@ export default function HomePage() {
             <h1 
               id="hero-heading"
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight"
-              aria-label="আমার সেবা প্রতিভা - Amar Sheba Protiva - Unified Civic Tech Transparency Platform"
+              aria-label="সেবার জানালা - Shebar Janala - Unified Civic Tech Transparency Platform"
             >
               <span className="bengali-heading block text-teal-600 mb-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl relative">
-                <span className="relative z-10 bengali-ornament" lang="bn">আমার সেবা প্রতিভা</span>
+                <span className="relative z-10 bengali-ornament" lang="bn">সেবার জানালা</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-100/50 via-transparent to-teal-100/50 rounded-lg -z-10 transform scale-110 opacity-50" aria-hidden="true"></div>
               </span>
               <span className="text-gradient block" lang="en">
-                Amar Sheba Protiva
+                Shebar Janala
               </span>
             </h1>
+
+            {/* Motto */}
+            <p className="text-base sm:text-lg lg:text-xl text-gray-700 font-semibold mb-3">
+              <span className="bengali-text" lang="bn">স্বচ্ছতাই শক্তি</span>
+              <span className="mx-2 text-gray-400">|</span>
+              <span className="text-gray-800">Power Through Transparency</span>
+            </p>
             
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto mb-6 sm:mb-8 leading-relaxed px-2">
               Unified Civic Tech Transparency Platform empowering citizens, leaders, and donors through{" "}
@@ -257,37 +264,37 @@ export default function HomePage() {
         >
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 id="impact-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Platform Impact</h2>
-            <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2">
-              Real-time transparency metrics showing positive change across Bangladesh
+            <h2 id="impact-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 bengali-text">আমাদের প্রভাব</h2>
+            <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto px-2 bengali-text">
+              বাংলাদেশ জুড়ে স্বচ্ছতার বাস্তবসময়ের পরিমাপ ও ইতিবাচক পরিবর্তন
             </p>
           </div>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 text-center hover:shadow-xl hover:border-teal-200 transition-all duration-300 group">
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-teal mb-1 sm:mb-2 group-hover:scale-105 transition-transform">12,547</div>
-              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-teal-700 transition-colors">Issues Reported</div>
-              <div className="text-xs text-green-600 mt-1">↗ +23% this month</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-teal mb-1 sm:mb-2 group-hover:scale-105 transition-transform bengali-text">১২,৫৪৭</div>
+              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-teal-700 transition-colors bengali-text">অভিযোগ গ্রহণ</div>
+              <div className="text-xs text-green-600 mt-1 bengali-text">↗ এই মাসে +২৩% বৃদ্ধি</div>
             </div>
             
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 text-center hover:shadow-xl hover:border-amber-200 transition-all duration-300 group">
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-amber mb-1 sm:mb-2 group-hover:scale-105 transition-transform">
-                <span className="bengali-text">৳২.৪M</span>
-              </div>
-              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-amber-700 transition-colors">Funds Tracked</div>
-              <div className="text-xs text-blue-600 mt-1 bengali-text">১০০% স্বচ্ছতা</div>
+               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-amber mb-1 sm:mb-2 group-hover:scale-105 transition-transform">
+                <span className="bengali-text">৳২.৪ লক্ষ</span>
+               </div>
+               <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-amber-700 transition-colors bengali-text">ট্র্যাক করা তহবিল</div>
+               <div className="text-xs text-blue-600 mt-1 bengali-text">১০০% স্বচ্ছতা</div>
             </div>
             
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 text-center hover:shadow-xl hover:border-purple-200 transition-all duration-300 group">
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-purple mb-1 sm:mb-2 group-hover:scale-105 transition-transform">89%</div>
-              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-purple-700 transition-colors">Resolution Rate</div>
-              <div className="text-xs text-green-600 mt-1">↗ +12% improved</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-purple mb-1 sm:mb-2 group-hover:scale-105 transition-transform bengali-text">৮৯%</div>
+              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-purple-700 transition-colors bengali-text">সমাধান হার</div>
+              <div className="text-xs text-green-600 mt-1 bengali-text">↗ উন্নতি +১২%</div>
             </div>
             
             <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-100 text-center hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group">
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-emerald mb-1 sm:mb-2 group-hover:scale-105 transition-transform">45,231</div>
-              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-emerald-700 transition-colors">Verified Beneficiaries</div>
-              <div className="text-xs text-blue-600 mt-1">NID Verified</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gradient-emerald mb-1 sm:mb-2 group-hover:scale-105 transition-transform bengali-text">৪৫,২৩১</div>
+              <div className="text-xs sm:text-sm text-gray-600 font-medium group-hover:text-emerald-700 transition-colors bengali-text">যাচাইকৃত সুবিধাভোগী</div>
+              <div className="text-xs text-blue-600 mt-1 bengali-text">এনআইডি যাচাইকৃত</div>
             </div>
           </div>
         </div>

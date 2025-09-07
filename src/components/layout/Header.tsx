@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from "@/components/ui/button";
-import { Bell, Menu, Search, User, Home, Users, TrendingUp, Heart, Globe, Headphones, Map, LogOut, Settings, ChevronDown } from "lucide-react";
+import { Bell, Menu, Search, User, Users, TrendingUp, Heart, Globe, Headphones, Map, LogOut, Settings, ChevronDown } from "lucide-react";
 import SearchModal from "./SearchModal";
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -35,15 +36,19 @@ export default function Header() {
       <div className="container mx-auto px-4 relative">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Home className="h-6 w-6 text-white" />
+          <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+            <div className=" rounded-xl overflow-hidden">
+              <Image src="/home-removebg-preview.png" alt="সেবার জানালা লোগো" width={56} height={56} className="w-full h-full object-contain bg-transparent" priority />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-gray-900">
-                <span className="bengali-text text-teal-600">আমার সেবা</span>
+                <span className="bengali-text text-teal-600">সেবার জানালা</span>
               </h1>
-              <p className="text-xs text-gray-500 -mt-1">Transparency Platform</p>
+              <p className="text-xs text-gray-500 -mt-1 bengali-text">
+                <span lang="bn">স্বচ্ছতাই শক্তি</span>
+                <span className="mx-1">|</span>
+                <span>Power Through Transparency</span>
+              </p>
             </div>
           </Link>
 

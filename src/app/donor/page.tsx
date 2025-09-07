@@ -65,11 +65,7 @@ export default function DonorDashboard() {
       .animation-delay-600 { animation-delay: 0.6s; }
     `;
     document.head.appendChild(style);
-    return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
+    return () => { style.remove(); };
   }, []);
   const [selectedTimeframe, setSelectedTimeframe] = useState('year');
   const [selectedProject, setSelectedProject] = useState<typeof donationProjects[0] | null>(null);
