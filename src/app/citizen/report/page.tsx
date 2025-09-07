@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from "@/components/ui/button";
@@ -19,13 +19,38 @@ import {
   Bot,
   Target,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  Mic
 } from "lucide-react";
 import { geminiService } from '@/lib/gemini';
 
+// Minimal Web Speech API typings to avoid any
+interface SpeechRecognitionResultAlt { transcript: string }
+interface SpeechRecognitionResultLike { isFinal: boolean; 0: SpeechRecognitionResultAlt }
+interface SpeechRecognitionEventLike { resultIndex: number; results: SpeechRecognitionResultLike[] }
+interface ISpeechRecognition {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  maxAlternatives: number;
+  start: () => void;
+  stop: () => void;
+  onstart?: () => void;
+  onresult?: (event: SpeechRecognitionEventLike) => void;
+  onerror?: (event?: unknown) => void;
+  onend?: () => void;
+}
+
+declare global {
+  interface Window {
+    SpeechRecognition?: new () => ISpeechRecognition;
+    webkitSpeechRecognition?: new () => ISpeechRecognition;
+  }
+}
+
 export default function IssueReporter() {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [description, setDescription] = useState('');
   const [isAIAnalyzing, setIsAIAnalyzing] = useState(false);
@@ -36,7 +61,7 @@ export default function IssueReporter() {
   const [urgency, setUrgency] = useState('');
   const [contactInfo, setContactInfo] = useState({
     phone: '',
-    email: user?.email || '',
+    email: '',
     preferredContact: 'email'
   });
   const [aiCategorization, setAiCategorization] = useState<{
@@ -49,6 +74,10 @@ export default function IssueReporter() {
   } | null>(null);
   const [uploadedImage, setUploadedImage] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [canUseSpeech, setCanUseSpeech] = useState(false);
+  const recognitionRef = useRef<ISpeechRecognition | null>(null);
+  const lastFinalRef = useRef<string>('');
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -56,6 +85,66 @@ export default function IssueReporter() {
       return;
     }
   }, [isAuthenticated, isLoading, router]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognitionCtor) {
+      setCanUseSpeech(true);
+      const recognition: ISpeechRecognition = new SpeechRecognitionCtor();
+      recognition.lang = 'bn-BD';
+      recognition.interimResults = false; // prevent duplicate interim appends
+      recognition.continuous = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        lastFinalRef.current = '';
+      };
+
+      recognition.onresult = (event: SpeechRecognitionEventLike) => {
+        let finalizedTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          if (result.isFinal) {
+            finalizedTranscript += result[0].transcript;
+          }
+        }
+        const segment = finalizedTranscript.replace(/\s+/g, ' ').trim();
+        if (!segment) return;
+        // Skip if same as last final or already at the end
+        if (segment === lastFinalRef.current) return;
+        lastFinalRef.current = segment;
+        setDescription((prev) => {
+          const trimmedPrev = (prev || '').replace(/\s+/g, ' ').trim();
+          if (trimmedPrev.endsWith(segment)) return prev; // already appended
+          return (trimmedPrev ? trimmedPrev + ' ' : '') + segment;
+        });
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+    } else {
+      setCanUseSpeech(false);
+    }
+  }, []);
+
+  const handleToggleSpeech = () => {
+    if (!canUseSpeech || !recognitionRef.current) return;
+    if (isListening) {
+      try { recognitionRef.current.stop(); } catch {}
+      setIsListening(false);
+    } else {
+      try { recognitionRef.current.start(); } catch {}
+      setIsListening(true);
+    }
+  };
 
   // Show loading state while authentication is being checked
   if (isLoading) {
@@ -152,7 +241,7 @@ Issue description: ${description}`;
         setSelectedCategory(aiResult.suggestedCategory);
         setPriority(aiResult.priority);
         setUrgency(aiResult.urgency);
-        setAISuggestions([aiResult.reasoning]);
+        
       } catch (parseError) {
         console.error('Error parsing AI response:', parseError);
         console.log('Raw AI response:', response);
@@ -171,11 +260,11 @@ Issue description: ${description}`;
         setSelectedCategory(fallbackResult.suggestedCategory);
         setPriority(fallbackResult.priority);
         setUrgency(fallbackResult.urgency);
-        setAISuggestions([fallbackResult.reasoning]);
+        
       }
     } catch (error) {
       console.error('AI categorization error:', error);
-      setAISuggestions(['AI analysis failed. Please select category manually.']);
+      
     } finally {
       setIsAIAnalyzing(false);
     }
@@ -193,18 +282,7 @@ Issue description: ${description}`;
     }
   };
 
-  const handleAIAnalysis = () => {
-    setIsAIAnalyzing(true);
-    // Simulate AI analysis
-    setTimeout(() => {
-      setAISuggestions([
-        'Add specific location details',
-        'Include time when issue occurred',
-        'Mention safety concerns if any'
-      ]);
-      setIsAIAnalyzing(false);
-    }, 2000);
-  };
+  
 
   return (
     <ProtectedRoute requiredPermissions={{ canAccessCitizen: true }}>
@@ -284,12 +362,23 @@ Issue description: ${description}`;
                       <label className="block text-sm font-medium text-gray-700 mb-3 bengali-text">
                         সমস্যাটি বিস্তারিত বর্ণনা করুন
                       </label>
-                      <Textarea
-                        placeholder="কী ঘটেছে, কখন ঘটেছে এবং অন্যান্য প্রাসঙ্গিক বিবরণ লিখুন..."
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="min-h-[120px] resize-none bengali-text"
-                      />
+                      <div className="relative">
+                        <Textarea
+                          placeholder="কী ঘটেছে, কখন ঘটেছে এবং অন্যান্য প্রাসঙ্গিক বিবরণ লিখুন..."
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          className="min-h-[120px] resize-none bengali-text pr-12"
+                        />
+                        <button
+                          type="button"
+                          onClick={canUseSpeech ? handleToggleSpeech : undefined}
+                          className={`absolute bottom-3 right-3 inline-flex items-center justify-center w-9 h-9 rounded-full border ${isListening ? 'border-emerald-500 text-emerald-600 bg-emerald-50' : 'border-gray-300 text-gray-600 bg-white hover:bg-gray-50'} transition-colors`}
+                          title={canUseSpeech ? (isListening ? 'শোনা বন্ধ করুন' : 'কথা বলে লিখুন') : 'শীঘ্রই আসছে'}
+                          aria-label="Voice input"
+                        >
+                          <Mic className={`h-4 w-4 ${isListening ? 'animate-pulse' : ''}`} />
+                        </button>
+                      </div>
                     </div>
 
                     {/* Image Upload Section */}

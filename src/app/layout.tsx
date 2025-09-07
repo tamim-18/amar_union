@@ -12,11 +12,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Amar Sheba Protiva - Unified Civic Tech Transparency Platform",
+  title: "Shebar Janala - Unified Civic Tech Transparency Platform",
   description: "Empowering citizens, leaders, and donors through blockchain-backed transparency and AI-powered civic engagement in Bangladesh.",
   keywords: ["civic tech", "transparency", "blockchain", "Bangladesh", "citizen engagement", "government accountability"],
-  authors: [{ name: "Amar Sheba Protiva Team" }],
-  creator: "Amar Sheba Protiva",
+  authors: [{ name: "Shebar Janala Team" }],
+  creator: "Shebar Janala",
   openGraph: {
     type: "website",
     locale: "en_US",

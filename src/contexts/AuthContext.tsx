@@ -89,10 +89,10 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
       return {
         canAccessCitizen: true,
         canAccessLeader: false,
-        canAccessDonor: true,
-        canAccessBeneficiary: true,
+        canAccessDonor: false,
+        canAccessBeneficiary: false,
         canAccessSupport: true,
-        canAccessMap: true,
+        canAccessMap: false,
         canAccessAdmin: false,
         canReportIssues: true,
         canManageIssues: false,
@@ -105,10 +105,10 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
     
     case 'sthaniyo_jonoprotinidhi':
       return {
-        canAccessCitizen: true,
+        canAccessCitizen: false,
         canAccessLeader: true,
-        canAccessDonor: true,
-        canAccessBeneficiary: true,
+        canAccessDonor: false,
+        canAccessBeneficiary: false,
         canAccessSupport: true,
         canAccessMap: true,
         canAccessAdmin: false,
@@ -123,10 +123,10 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
     
     case 'upazila_chairman':
       return {
-        canAccessCitizen: true,
+        canAccessCitizen: false,
         canAccessLeader: true,
-        canAccessDonor: true,
-        canAccessBeneficiary: true,
+        canAccessDonor: false,
+        canAccessBeneficiary: false,
         canAccessSupport: true,
         canAccessMap: true,
         canAccessAdmin: false,
@@ -141,10 +141,10 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
     
     case 'mayor':
       return {
-        canAccessCitizen: true,
+        canAccessCitizen: false,
         canAccessLeader: true,
-        canAccessDonor: true,
-        canAccessBeneficiary: true,
+        canAccessDonor: false,
+        canAccessBeneficiary: false,
         canAccessSupport: true,
         canAccessMap: true,
         canAccessAdmin: false,
@@ -182,7 +182,7 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
         canAccessDonor: true,
         canAccessBeneficiary: false,
         canAccessSupport: true,
-        canAccessMap: true,
+        canAccessMap: false,
         canAccessAdmin: false,
         canReportIssues: false,
         canManageIssues: false,
