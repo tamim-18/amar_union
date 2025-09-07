@@ -40,19 +40,19 @@ import {
 
 export default function MapPage() {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading, isInitializing } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [viewMode, setViewMode] = useState<'map' | 'analytics' | 'reports'>('map');
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       router.push('/auth');
       return;
     }
-  }, [isAuthenticated, isInitializing, router]);
+  }, [isAuthenticated, isLoading, router]);
 
   // Show loading state while authentication is being initialized
-  if (isInitializing) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">

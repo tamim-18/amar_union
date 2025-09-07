@@ -21,14 +21,14 @@ import {
 
 export default function CitizenDashboard() {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading, isInitializing } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       router.push('/auth');
       return;
     }
-  }, [isAuthenticated, isInitializing, router]);
+  }, [isAuthenticated, isLoading, router]);
 
   const handleReportIssue = () => {
     router.push('/citizen/report');
@@ -46,8 +46,8 @@ export default function CitizenDashboard() {
     router.push('/citizen/track');
   };
 
-  // Show loading state while authentication is being initialized
-  if (isInitializing) {
+  // Show loading state while authentication is being checked
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50 flex items-center justify-center">
         <div className="text-center">

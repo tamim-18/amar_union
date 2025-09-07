@@ -51,7 +51,6 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  isInitializing: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (userData: RegisterData) => Promise<boolean>;
   logout: () => void;
@@ -90,10 +89,10 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
       return {
         canAccessCitizen: true,
         canAccessLeader: false,
-        canAccessDonor: false,
-        canAccessBeneficiary: false,
+        canAccessDonor: true,
+        canAccessBeneficiary: true,
         canAccessSupport: true,
-        canAccessMap: false,
+        canAccessMap: true,
         canAccessAdmin: false,
         canReportIssues: true,
         canManageIssues: false,
@@ -106,56 +105,56 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
     
     case 'sthaniyo_jonoprotinidhi':
       return {
-        canAccessCitizen: false,
+        canAccessCitizen: true,
         canAccessLeader: true,
-        canAccessDonor: false,
-        canAccessBeneficiary: false,
+        canAccessDonor: true,
+        canAccessBeneficiary: true,
         canAccessSupport: true,
         canAccessMap: true,
         canAccessAdmin: false,
-        canReportIssues: false,
+        canReportIssues: true,
         canManageIssues: true,
         canViewAnalytics: true,
         canManageUsers: false,
         canViewTransparency: true,
-        canCheckEligibility: false,
-        canTrackBenefits: false,
+        canCheckEligibility: true,
+        canTrackBenefits: true,
       };
     
     case 'upazila_chairman':
       return {
-        canAccessCitizen: false,
+        canAccessCitizen: true,
         canAccessLeader: true,
-        canAccessDonor: false,
-        canAccessBeneficiary: false,
+        canAccessDonor: true,
+        canAccessBeneficiary: true,
         canAccessSupport: true,
         canAccessMap: true,
         canAccessAdmin: false,
-        canReportIssues: false,
+        canReportIssues: true,
         canManageIssues: true,
         canViewAnalytics: true,
         canManageUsers: false,
         canViewTransparency: true,
-        canCheckEligibility: false,
-        canTrackBenefits: false,
+        canCheckEligibility: true,
+        canTrackBenefits: true,
       };
     
     case 'mayor':
       return {
-        canAccessCitizen: false,
+        canAccessCitizen: true,
         canAccessLeader: true,
-        canAccessDonor: false,
-        canAccessBeneficiary: false,
+        canAccessDonor: true,
+        canAccessBeneficiary: true,
         canAccessSupport: true,
         canAccessMap: true,
         canAccessAdmin: false,
-        canReportIssues: false,
+        canReportIssues: true,
         canManageIssues: true,
         canViewAnalytics: true,
         canManageUsers: false,
         canViewTransparency: true,
-        canCheckEligibility: false,
-        canTrackBenefits: false,
+        canCheckEligibility: true,
+        canTrackBenefits: true,
       };
     
     case 'minister':
@@ -183,7 +182,7 @@ const getRolePermissions = (role: UserRole): RolePermissions => {
         canAccessDonor: true,
         canAccessBeneficiary: false,
         canAccessSupport: true,
-        canAccessMap: false,
+        canAccessMap: true,
         canAccessAdmin: false,
         canReportIssues: false,
         canManageIssues: false,
@@ -353,8 +352,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isInitializing, setIsInitializing] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Check for stored user data on mount
@@ -368,7 +366,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.removeItem('user');
       }
     }
-    setIsInitializing(false);
+    setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
@@ -453,7 +451,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     user,
     isAuthenticated: !!user,
     isLoading,
-    isInitializing,
     login,
     register,
     logout,

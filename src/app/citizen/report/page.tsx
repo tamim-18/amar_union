@@ -25,7 +25,7 @@ import { geminiService } from '@/lib/gemini';
 
 export default function IssueReporter() {
   const router = useRouter();
-  const { user, isAuthenticated, isLoading, isInitializing } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [description, setDescription] = useState('');
   const [isAIAnalyzing, setIsAIAnalyzing] = useState(false);
@@ -51,14 +51,14 @@ export default function IssueReporter() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
-    if (!isInitializing && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       router.push('/auth');
       return;
     }
-  }, [isAuthenticated, isInitializing, router]);
+  }, [isAuthenticated, isLoading, router]);
 
-  // Show loading state while authentication is being initialized
-  if (isInitializing) {
+  // Show loading state while authentication is being checked
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-blue-50 flex items-center justify-center">
         <div className="text-center">
